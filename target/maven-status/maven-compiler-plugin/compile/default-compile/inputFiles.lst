@@ -1,5 +1,6 @@
 /Users/lukaszcholewa/IdeaProjects/CarRentMaven/src/main/java/pl/camp/it/model/Bus.java
 /Users/lukaszcholewa/IdeaProjects/CarRentMaven/src/main/java/pl/camp/it/model/Vehicle.java
+/Users/lukaszcholewa/IdeaProjects/CarRentMaven/src/main/java/pl/camp/it/db/Persistance.java
 /Users/lukaszcholewa/IdeaProjects/CarRentMaven/src/main/java/pl/camp/it/model/Car.java
 /Users/lukaszcholewa/IdeaProjects/CarRentMaven/src/main/java/pl/camp/it/db/VehicleRepository.java
 /Users/lukaszcholewa/IdeaProjects/CarRentMaven/src/main/java/pl/camp/it/GUI/GUI.java
