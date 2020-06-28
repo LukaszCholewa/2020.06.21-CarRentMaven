@@ -78,7 +78,7 @@ public class GUI {
         System.out.println("Podaj hasło:");
         String password = scanner.nextLine();
 
-        User userFromDataBase = SQLDb.getUserByLogin(login);
+        User userFromDataBase = SQLDb.getUserByLogin2(login);
 
         if(userFromDataBase == null){
             showLoginScreen();

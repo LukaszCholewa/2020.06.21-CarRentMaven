@@ -142,6 +142,60 @@ public class SQLDb {
         }
         return null;
     }
+
+    public static User getUserByLogin2(String login) {
+        try {
+            String sql = "SELECT * FROM tuser WHERE login = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, login);
+
+            ResultSet result = statement.executeQuery();
+
+            if (result.next()){
+                User user = new User();
+                user.setId(result.getInt("id"));
+                user.setLogin(result.getString("login"));
+                user.setPassword(result.getString("password"));
+
+                return user;
+            } else {
+                return null;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void saveVehicle2(Vehicle vehicle) {
+        try {
+            String sql = "INSERT INTO tvehicle" +
+            "(brand, model, vin, rent, personsAmount, wheelsCount)" +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement statement = connect().prepareStatement(sql);
+
+            statement.setString(1, vehicle.getBrand());
+            statement.setString(2, vehicle.getModel());
+            statement.setString(3, vehicle.getVin());
+            statement.setBoolean(4, vehicle.isRent());
+
+            if(vehicle instanceof Bus){
+                Bus temp = (Bus) vehicle;
+                statement.setInt(5, ((Bus) vehicle).getPersonsAmount());
+                statement.setInt(6, ((Bus) vehicle).getWheelsCount());
+            }else {
+                statement.setNull(5, Types.NULL);
+                statement.setNull(6, Types.NULL);
+            }
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
