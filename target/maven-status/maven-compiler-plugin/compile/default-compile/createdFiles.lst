@@ -1,4 +1,5 @@
 pl/camp/it/model/Car.class
+pl/camp/it/db/SQLDb.class
 pl/camp/it/db/VehicleRepository.class
 pl/camp/it/Main.class
 pl/camp/it/db/Persistance.class

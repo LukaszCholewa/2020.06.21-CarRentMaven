@@ -1,19 +1,22 @@
 package pl.camp.it.db;
 
-import pl.camp.it.model.Bus;
-import pl.camp.it.model.Car;
 import pl.camp.it.model.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleRepository {
-    private List<Vehicle> vehicles = new ArrayList<>();
+    private List<Vehicle> vehicles = SQLDb.getAllVehicles();
 
     private static final VehicleRepository vehicleRepository = new VehicleRepository();
 
-    private VehicleRepository() {
-    Persistance.loadData(vehicles);
+    /*private VehicleRepository() {
+        Persistance.loadData(vehicles);
+
+        for (Vehicle vehicle: vehicles){
+            SQLDb.saveVehicle(vehicle);
+        }
+
 
         /*Car c1 = new Car(1, "BMW", "M8", "jdkdjd");
 
@@ -30,7 +33,7 @@ public class VehicleRepository {
 
         this.vehicles.add(new Bus(5, "MAN", "A100",
                 "dffe344", 50, 8));*/
-    }
+
 
     public List<Vehicle> getVehicles() {
         return vehicles;
