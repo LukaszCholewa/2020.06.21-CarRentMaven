@@ -2,6 +2,7 @@ package pl.camp.it.db;
 
 import pl.camp.it.model.Bus;
 import pl.camp.it.model.Car;
+import pl.camp.it.model.User;
 import pl.camp.it.model.Vehicle;
 
 import java.sql.*;
@@ -48,7 +49,7 @@ public class SQLDb {
                         .append(", ")
                         .append(temp.getWheelsCount());
 
-            }else {
+            } else {
                 sql.append(", ")
                         .append("NULL")
                         .append(", ")
@@ -62,15 +63,15 @@ public class SQLDb {
         }
     }
 
-    public static List<Vehicle> getAllVehicles(){
+    public static List<Vehicle> getAllVehicles() {
         List<Vehicle> resultList = new ArrayList<>();
-        try{
+        try {
             Statement statement = connection.createStatement();
 
             ResultSet wyniki = statement
                     .executeQuery("SELECT * FROM tvehicle");
 
-            while (wyniki.next()){
+            while (wyniki.next()) {
                 int id = wyniki.getInt("id");
                 String brand = wyniki.getString("brand");
                 String model = wyniki.getString("model");
@@ -80,7 +81,7 @@ public class SQLDb {
                 Integer personsAmount = wyniki.getInt("personsAmount");
                 Integer wheelsCount = wyniki.getInt("wheelsCount");
 
-                if(wyniki.wasNull()){
+                if (wyniki.wasNull()) {
                     resultList.add(new Car(id, brand, model, vin, rent));
                 } else {
                     resultList.add(new Bus(id, brand, model, vin, rent, personsAmount, wheelsCount));
@@ -94,19 +95,52 @@ public class SQLDb {
     }
 
     public static void updateVehicleRent(Vehicle vehicle) {
-        try{
+        try {
             Statement statement = connection.createStatement();
 
             StringBuilder sql = new StringBuilder();
             sql.append("UPDATE tvehicle SET rent = ")
                     .append(vehicle.isRent())
-                    .append("WHERE id = ")
+                    .append(" WHERE id = ")
                     .append(vehicle.getId());
 
             statement.executeUpdate(sql.toString());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public static void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static User getUserByLogin(String login) {
+        try {
+            Statement statement = connection.createStatement();
+
+            String sql = "SELECT * FROM tuser WHERE login = '" + login +"'";
+
+            ResultSet result = statement.executeQuery(sql);
+
+            if (result.next()){
+                User user = new User();
+                user.setId(result.getInt("id"));
+                user.setLogin(result.getString("login"));
+                user.setPassword(result.getString("password"));
+
+                return user;
+            } else {
+                return null;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
 
